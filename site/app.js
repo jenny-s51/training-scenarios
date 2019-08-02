@@ -4,7 +4,6 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var es6Renderer = require('express-es6-template-engine');
-var sass = require('node-sass-middleware');
 var app = express();
 
 // view engine setup
@@ -16,14 +15,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(
-  sass({
-    src: __dirname + '/',    // Input SASS files
-    dest: __dirname + '/css', // Output CSS
-    debug: true
-  })
-);
-app.use(express.static(path.join(__dirname, 'css')));
+app.use(express.static(path.join(__dirname, 'assets')));
 
 app.get('/', function(req, res) {
   // res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
@@ -45,7 +37,7 @@ app.get('/iframe', function(req, res) {
       title:  'PatternFly'
     },
     partials: {
-      partial: '/index'
+      partial: '/layout'
     }
   });
 });

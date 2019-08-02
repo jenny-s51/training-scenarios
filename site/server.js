@@ -7,6 +7,7 @@
 var app = require('./app');
 var debug = require('debug')('new-app:server');
 var http = require('http');
+var livereload = require('livereload');
 
 /**
  * Get port from environment and store in Express.
@@ -28,6 +29,9 @@ var server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+
+var lrserver = livereload.createServer();
+lrserver.watch(__dirname);
 
 /**
  * Normalize a port into a number, string, or false.
